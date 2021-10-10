@@ -1,8 +1,14 @@
-import { Flex, Button, Box, Heading, Divider, Input, Stack } from "@chakra-ui/react";
-import { memo, VFC } from "react";
+import { Flex, Box, Heading, Divider, Input, Stack } from "@chakra-ui/react";
+import { ChangeEvent, memo, useState, VFC } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const Login: VFC = memo(() => {
+  const [userId, setUserId] = useState("");
+  const { login, loading } = useAuth();
+  const onChangeUserId = (e: ChangeEvent<HTMLInputElement>) => setUserId(e.target.value);
+  const onClickLogin = () => login(userId);
+
   return (
     <Flex align="center" justify="center" height="100vh">
       <Box bg="white" w="md" p={4} borderRadius="md" shadow="md">
@@ -10,9 +16,9 @@ export const Login: VFC = memo(() => {
           ユーザー管理アプリ
         </Heading>
         <Divider my={4} />
-        <Stack spacing={4} py={4} px={10}>
-          <Input placeholder="ユーザーID" />
-          <PrimaryButton>ログイン</PrimaryButton>
+        <Stack spacing={8} py={4} px={10}>
+          <Input placeholder="ユーザーID" value={userId} onChange={onChangeUserId} />
+          <PrimaryButton onClick={onClickLogin}>ログイン</PrimaryButton>
         </Stack>
       </Box>
     </Flex>
