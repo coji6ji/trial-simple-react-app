@@ -1,5 +1,5 @@
 import { memo, VFC } from "react";
 
-export const Home: VFC = memo(() => {
+export const Setting: VFC = memo(() => {
   return <p>設定</p>;
 });
